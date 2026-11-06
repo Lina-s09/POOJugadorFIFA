@@ -58,19 +58,25 @@ public class Main { //crea juagdores
         newPlayer.is_alive = true;
         newPlayer.dorsal = 20;
         //System.out.println(" Edad: "+newPlayer.getEdad());
-        System.out.println(newPlayer);
+        //System.out.println(newPlayer);
         System.out.println(newPlayer.playerToCSV()); //La forma en la que se van a enseñar los jugaores en archivo SCV
-        //savePlayer(newPlayer)
+        savePlayer(newPlayer);
+        readPlayer();
+        Jugador newPlayer2 = new Jugador("Arnulfo", LocalDate.of(1960,5,17));
+        savePlayer(newPlayer2);
         System.out.println("Hola, aquí cierra manito");
         readPlayer();
     }
 
     public static void savePlayer(Jugador jugadorToSave) {
         try {
-            FileWriter escribir = new FileWriter("players.csv"); //Para guardar los jugadores, que se escriben
-            escribir.write(jugadorToSave.playerToCSV());
+            FileWriter escribir = new FileWriter("players.csv",true); //Para guardar los jugadores, que se escriben, creando el objeto de ese tipo
+            //escribir.write(jugadorToSave.playerToCSV());
+            escribir.write(jugadorToSave.playerToCSV()); //es la unica que permite almacenar una cantidad de jugadores
+            escribir.write("\n"); //para un salto de línea
             escribir.close();
             System.out.println("El jugador fue guardado correctamente"); //mensaje para indicar que salió bien
+
         } catch (IOException e) {
             System.out.println("Algo anda mal :("); //mensaje de error
         }
@@ -81,10 +87,16 @@ public class Main { //crea juagdores
         try
         {
             FileReader lector = new FileReader("players.csv");
-            BufferedReader buffer = new BufferedReader(lector);
-            String playerReader = buffer.readLine();
-            System.out.println(playerReader);
-            buffer.close();
+            BufferedReader buffer = new BufferedReader(lector); //lee los jugadores que se estan guardando
+            String playerReader;
+
+                while((playerReader= buffer.readLine())!=null) //para leer los jugadores que no estan vacíos
+                {
+                    System.out.println(playerReader); //muestra los elementos que se están almacenando
+                }
+                buffer.close();
+                System.out.println("Todos los jugadores fueron leídos correctamente");
+
         }
 
         catch (IOException e)
