@@ -38,7 +38,7 @@ public class Main { //crea juagdores
         t1.name="Pekerman";
         t1.club="Desempleado"; //crea tecnico
 
-        System.out.println(t1);
+        System.out.println(t1); //muestra juagor
 
         System.out.println(j3.getEdad()); //muestra la edad
 
