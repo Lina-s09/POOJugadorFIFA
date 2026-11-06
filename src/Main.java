@@ -1,6 +1,6 @@
-import java.time.LocalDate;
+import java.time.LocalDate; //abre con la fecha actual
 
-public class Main {
+public class Main { //crea juagdores
     public static void main(String[] args) {
         Jugador j1 = new Jugador();
 
@@ -8,14 +8,14 @@ public class Main {
 
 
         Jugador j3 = new Jugador("Quintero",
-                LocalDate.of(1993,1,18));
+                LocalDate.of(1993,1,18)); //crea juagador con la fecha local
 
 
-        e1.plantilla = new Jugador[5];
+        e1.plantilla = new Jugador[5]; //arreglo para crear el equipo de jugadores
         e1.plantilla[0] = j1;
         j1.posicion = Posicion.EXTREMO;
 
-        Persona p1 = new Persona();
+        Persona p1 = new Persona(); //crea persona
         p1.name = "Daniel";
         p1.setCountry("Colombia");
 
@@ -30,17 +30,17 @@ public class Main {
         j1.setCountry("España");
         System.out.println(j1.getCountry());
 
-        System.out.println(j1);
+        System.out.println(j1); //muestra juagdor
 
 
         Tecnico t1 = new Tecnico();
 
         t1.name="Pekerman";
-        t1.club="Desempleado";
+        t1.club="Desempleado"; //crea tecnico
 
         System.out.println(t1);
 
-        System.out.println(j3.getEdad());
+        System.out.println(j3.getEdad()); //muestra la edad
 
     }
 }

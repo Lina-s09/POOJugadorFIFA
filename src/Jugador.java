@@ -1,14 +1,14 @@
-import java.time.LocalDate;
+import java.time.LocalDate; //Abre con la fecha actual
 import java.time.Period;
 
-public class Jugador extends Persona {
-    public int dorsal;
+public class Jugador extends Persona { //Herencia de persona
+    public int dorsal; //atributos para el objeto persona
     public Posicion posicion;
     private LocalDate nacimiento;
 
     public void setNacimiento(LocalDate nacimiento) {
         this.nacimiento = nacimiento;
-    }
+    } //metodo que utiliza el set para calcular la edad partiendo de la fecha de nacimiento
 
     public int getEdad()
     {
@@ -16,11 +16,11 @@ public class Jugador extends Persona {
                 nacimiento,
                 LocalDate.now()
         ).getYears();
-
+        //metodo que utiliza el get para devolver la edad que se dtermina con el set
     }
 
 
-    @Override
+    @Override //string que muestra la informacion del jugador en conjunto
     public String toString() {
         return "Jugador{" +
                 "dorsal=" + dorsal +
@@ -29,12 +29,12 @@ public class Jugador extends Persona {
     }
 
 
-    public Jugador(String nombre, LocalDate nacimiento)
+    public Jugador(String nombre, LocalDate nacimiento) //metodo constructor para crear el jugador
     {
         super.name=nombre;
-        nacimiento=this.nacimiento;
+        this.nacimiento=nacimiento;
     }
 
-    public Jugador()
+    public Jugador() //metodo para crear un jugador vacio
     {}
 }
