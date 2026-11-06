@@ -7,7 +7,7 @@ public class Jugador extends Persona { //Herencia de persona
     private LocalDate nacimiento;
 
     public void setNacimiento(LocalDate nacimiento) {
-        this.nacimiento = nacimiento;
+        this.nacimiento = nacimiento; //arreglar esta parte
     } //metodo que utiliza el set para calcular la edad partiendo de la fecha de nacimiento
 
     public int getEdad()
@@ -37,4 +37,9 @@ public class Jugador extends Persona { //Herencia de persona
 
     public Jugador() //metodo para crear un jugador vacio
     {}
+
+    public String playerToCSV () //metodo que retorna la información de los jugadores como archivo CSV
+    {
+        return this.name + ", "+this.dorsal+", "+this.getEdad()+", "+is_alive;
+    }
 }

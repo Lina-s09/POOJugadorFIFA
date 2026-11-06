@@ -1,8 +1,15 @@
-import java.time.LocalDate; //abre con la fecha actual
+import java.io.File;
+import java.time.LocalDate;//abre con la fecha actual
+import java.io.FileWriter; //para empezar con las persistencias y guardar los archivos en CSV
+import java.io.IOException;
 
 public class Main { //crea juagdores
     public static void main(String[] args) {
+        /*
+
+
         Jugador j1 = new Jugador();
+
 
         Equipo e1 = new Equipo();
 
@@ -42,5 +49,27 @@ public class Main { //crea juagdores
 
         System.out.println(j3.getEdad()); //muestra la edad
 
+         */
+
+        Jugador newPlayer = new Jugador("Carlos", LocalDate.of(2008, 11, 1));
+        newPlayer.is_alive = true;
+        newPlayer.dorsal = 20;
+        //System.out.println(" Edad: "+newPlayer.getEdad());
+
+        System.out.println(newPlayer.playerToCSV()); //La forma en la que se van a enseñar los jugaores en archivo SCV
+        savePlayer(newPlayer);
     }
-}
+
+        public static void savePlayer(Jugador jugadorToSave) {
+            try {
+                FileWriter escribir = new FileWriter("players.csv");
+                escribir.write(jugadorToSave.playerToCSV());
+                escribir.close();
+                System.out.println("El jugador fue guardado correctamente");
+            } catch (IOException e) {
+                System.out.println("Algo anda mal :(");
+            }
+        }
+
+
+    }
