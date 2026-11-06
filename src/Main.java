@@ -1,7 +1,10 @@
+//Librerias
 import java.io.File;
 import java.time.LocalDate;//abre con la fecha actual
 import java.io.FileWriter; //para empezar con las persistencias y guardar los archivos en CSV
 import java.io.IOException;
+import java.io.FileReader; //Segunda persistencia para leer
+import java.io.BufferedReader;
 
 public class Main { //crea juagdores
     public static void main(String[] args) {
@@ -55,21 +58,40 @@ public class Main { //crea juagdores
         newPlayer.is_alive = true;
         newPlayer.dorsal = 20;
         //System.out.println(" Edad: "+newPlayer.getEdad());
-
+        System.out.println(newPlayer);
         System.out.println(newPlayer.playerToCSV()); //La forma en la que se van a enseñar los jugaores en archivo SCV
-        savePlayer(newPlayer);
+        //savePlayer(newPlayer)
+        System.out.println("Hola, aquí cierra manito");
+        readPlayer();
     }
 
-        public static void savePlayer(Jugador jugadorToSave) {
-            try {
-                FileWriter escribir = new FileWriter("players.csv");
-                escribir.write(jugadorToSave.playerToCSV());
-                escribir.close();
-                System.out.println("El jugador fue guardado correctamente");
-            } catch (IOException e) {
-                System.out.println("Algo anda mal :(");
-            }
+    public static void savePlayer(Jugador jugadorToSave) {
+        try {
+            FileWriter escribir = new FileWriter("players.csv"); //Para guardar los jugadores, que se escriben
+            escribir.write(jugadorToSave.playerToCSV());
+            escribir.close();
+            System.out.println("El jugador fue guardado correctamente"); //mensaje para indicar que salió bien
+        } catch (IOException e) {
+            System.out.println("Algo anda mal :("); //mensaje de error
         }
+    }
+
+    public static void readPlayer()
+    {
+        try
+        {
+            FileReader lector = new FileReader("players.csv");
+            BufferedReader buffer = new BufferedReader(lector);
+            String playerReader = buffer.readLine();
+            System.out.println(playerReader);
+            buffer.close();
+        }
+
+        catch (IOException e)
+        {
+            System.out.println("Algo salió mal :(");
+        }
+    }
 
 
     }
