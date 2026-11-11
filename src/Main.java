@@ -1,6 +1,9 @@
 //Librerias
 
 import models.Jugador;
+import operations.Operations;
+
+import static operations.Operations.*;
 
 import java.time.LocalDate;//abre con la fecha actual
 import java.util.Scanner;
@@ -84,9 +87,9 @@ public class Main { //crea juagdores
             System.out.println("\n------------ MENÚ JUGADORES ------------");
             System.out.println("1. Crear jugador");
             System.out.println("2. Buscar jugador");
-            System.out.println("3. Mostrar jugador");
-            System.out.println("4. Salir");
-            System.out.println("--------------------------------");
+            System.out.println("3. Leer todos los jugadores");
+            System.out.println("0. Salir");
+            System.out.println("----------------------------------------");
 
             opcion = leer.nextInt();
 
@@ -96,6 +99,17 @@ public class Main { //crea juagdores
                     newPlayer();
                     break;
                 case 2:
+                    findPlayer();
+                    break;
+                case 3:
+                    showAllPlayers();
+                    break;
+                case 0:
+                    System.out.println("Hasta pronto");
+                    System.exit(0); //Para finalizar el programa
+                    break;
+                default:
+                    System.out.println("Ingresa un número válido");
 
 
             }
@@ -104,8 +118,7 @@ public class Main { //crea juagdores
         while (opcion != 0);
     }
 
-    public static void newPlayer()
-    {
+    public static void newPlayer() {
         Scanner leer = new Scanner(System.in); //para leer los datos que se van a ingresar
 
         //informacion de los juagdores a leer
@@ -118,36 +131,28 @@ public class Main { //crea juagdores
         System.out.println("Ingrese el dia de nacimiento del nuevo jugador");
         int day = leer.nextInt();
         //se crea el jugador con estos nuevos parametros
-        Jugador j2db = new Jugador(name_player,LocalDate.of(year,mont,day));
+        Jugador j2db = new Jugador(name_player, LocalDate.of(year, mont, day));
         //se le añade la informacion que falta
         System.out.println("Ingrese el dorsal del nuevo jugador");
         j2db.dorsal = leer.nextInt();
         j2db.is_alive = true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //guardar jugador
+        Operations.savePlayer(j2db);
 
     }
+    public static void findPlayer() { //buscar jugador
+        Scanner leer = new Scanner(System.in); //para definir que lea
+        System.out.println("Ingrese el jugador que desea buscar");
+        String jbrc = leer.nextLine();
+        System.out.println("El nombre del jugador ingresado es: " + jbrc);
+        Operations.readOnePlayer(jbrc);
+
+    }
+    public static void showAllPlayers() {
+        Operations.readPlayers();
+    }
+
+
+
+     //TODO menus para los jugadores y sus equipos
 }
