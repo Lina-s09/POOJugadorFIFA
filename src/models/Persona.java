@@ -1,3 +1,5 @@
+package models;
+
 public class Persona { //atributos de persona
     public String name;
     private String country ;
@@ -14,7 +16,7 @@ public class Persona { //atributos de persona
 
     @Override
     public String toString() { //string completo de all lo de persona
-        return "Persona{" +
+        return "models.Persona{" +
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
                 ", is_alive=" + is_alive +

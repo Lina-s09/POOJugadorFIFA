@@ -1,3 +1,5 @@
+package models;
+
 import java.time.LocalDate; //Abre con la fecha actual
 import java.time.Period;
 
@@ -22,7 +24,7 @@ public class Jugador extends Persona { //Herencia de persona
 
     @Override //string que muestra la informacion del jugador en conjunto
     public String toString() {
-        return "Jugador{" +
+        return "models.Jugador{" +
                 "dorsal=" + dorsal +
                 "} "
                 + super.toString();
