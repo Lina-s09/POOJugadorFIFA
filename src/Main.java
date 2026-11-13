@@ -81,6 +81,8 @@ public class Main { //crea juagdores
          */
         Scanner leer = new Scanner(System.in);
 
+        System.out.println("Bienvenido"); //Decirle que holi :D
+
         int opcion;
         do
         {
@@ -88,6 +90,8 @@ public class Main { //crea juagdores
             System.out.println("1. Crear jugador");
             System.out.println("2. Buscar jugador");
             System.out.println("3. Leer todos los jugadores");
+            System.out.println("4. Abrir menú para equipos"); //Aquí se abre el menú para crear jugadores
+            System.out.println("5. Eliminar Jugador");
             System.out.println("0. Salir");
             System.out.println("----------------------------------------");
 
@@ -104,6 +108,19 @@ public class Main { //crea juagdores
                 case 3:
                     showAllPlayers();
                     break;
+                case 4:
+
+                    //Menú para equipos, mostrar que hace
+                    System.out.println("------------ MENÚ EQUIPOS ------------");
+                    System.out.println("1. Crear técnico");
+                    System.out.println("2. Crear un equipo");
+                    System.out.println("3. Añadir jugadores y técnico al equipo");
+                    System.out.println("4. Volver");
+                    System.out.println("0. Salir");
+                     //TODO seguir despues con eso
+                    break;
+                case 5:
+                    Borrar();
                 case 0:
                     System.out.println("Hasta pronto");
                     System.exit(0); //Para finalizar el programa
@@ -148,9 +165,21 @@ public class Main { //crea juagdores
         Operations.readOnePlayer(jbrc);
 
     }
-    public static void showAllPlayers() {
+    public static void showAllPlayers()
+    {
         Operations.readPlayers();
     }
+
+    public static void Borrar()
+    {
+        Scanner leer = new Scanner(System.in); //para definir que jugador busca para borrar
+        System.out.println("Ingrese el jugador que desea borrar");
+        String jborrar = leer.nextLine();
+        System.out.println("El nombre del jugador ingresado es: " + jborrar);
+        Operations.BorrarPlayer(jborrar);
+    }
+
+
 
 
 
