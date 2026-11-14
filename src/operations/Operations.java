@@ -53,7 +53,7 @@ public class Operations
             BufferedReader buffer = new BufferedReader(lector);
             String playerReader;
 
-            Boolean encontrado = false;
+            Boolean encontrado = false; //Se utiliza para determinar que el jugador fue leído o no, y establecer las condiciones para enviar los mensajes por la salida
 
             while ((playerReader = buffer.readLine()) != null) { //para recorrer todas las lineas de jugares y leerlas
                         // System.out.println("Linea encontrada"+ playerReader);
@@ -68,8 +68,8 @@ public class Operations
                    // System.out.println("Nombre leido "+ temp_player.name);
                    // System.out.println("Nombre buscado"+ name);
 
-                if (temp_player.name.equals(name)) {
-                    encontrado = true;
+                if (temp_player.name.equals(name)) { //Indica la igualdad para encontra al jugado por el nombre ingresado
+                    encontrado = true; //establece que el jugador si es encontrado es verdadero
                     System.out.println("El jugador encontrado es: "+ playerReader);
                     break;
                 }
@@ -77,7 +77,7 @@ public class Operations
             buffer.close(); //cierra el buffer
             System.out.println("Finalizó la búsqueda");
 
-            if (!encontrado)
+            if (!encontrado) //si es difrente al que fue encontrado se envia un mensaje que lo indica
             {
                 System.out.println("El jugador a buscar no fue encontrado, verifíque la información ingresada");
             }
@@ -94,6 +94,8 @@ public class Operations
         {
              Scanner leer = new Scanner(System.in);
              String jugadores = "";
+
+             Boolean encontrado = false;
 
              try {
                  FileReader lector = new FileReader("players.csv"); //entra al archivo de jugadores de csv, paar leer los jugadores
@@ -115,12 +117,12 @@ public class Operations
 
                      if (temp_player.name.equals(name)) {
                          //System.out.println("El jugador encontrado es: "+ playerReader);
-
-                         System.out.println("¿Desea borrar este jugador?" + playerReader); //Preguntar de encontrar el jugador
-                         System.out.println("Indicar SI o NO");
+                         encontrado = true;
+                         System.out.println("¿Desea borrar este jugador? " + playerReader); //Preguntar de encontrar el jugador
+                         System.out.println("Indicar SI en caso de ser así");
                          String decidir = leer.nextLine();
 
-                         if (decidir.equals("SI"))
+                         if (decidir.equalsIgnoreCase("SI")) //Ignora las mayúsculas y minúsculas
                          {
                              System.out.println("Se eliminará el jugador seleccionado");
                          }
@@ -129,20 +131,25 @@ public class Operations
                              System.out.println("Se canceló la operación, el jugador no será eliminado");
                              jugadores += playerReader + "\n";
                          }
-
-                         break; //para terminar porque ya se encontró y borró el jugador
                      }
 
                      else
                      {
-                         System.out.println("No se encontró el jugador que se estaba buscando, ingrese su nombre nuevamente");
-
+                         jugadores += playerReader + "\n"; //se almacenan los jugadores si no son los que se están buscando, adicioanlmente para seguir siendo guardados se agrega el salto de línea
                      }
                  }
                  buffer.close(); //cierra el buffer
-                 System.out.println("El jugador fue eliminado correctamente");
-             }
 
+                 //Para almacenarlos en el CSV
+                 FileWriter escribirCSV = new FileWriter("players.csv"); //para indicar que entre al archivo scv
+                 escribirCSV.write(jugadores); //que escriba sobre jugadores a los jugadores que ya están
+                 escribirCSV.close(); //cerrar
+
+                 if (!encontrado)
+                 {
+                     System.out.println("No se encontró el jugador que se estaba buscando, ingrese su nombre nuevamente");
+                 }
+             }
              catch(Exception e)
              {
                  //System.out.println("Algo salió mal :(");
