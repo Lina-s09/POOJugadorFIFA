@@ -182,6 +182,5 @@ public class Main { //crea juagdores
 
 
 
-
      //TODO menus para los jugadores y sus equipos
 }
