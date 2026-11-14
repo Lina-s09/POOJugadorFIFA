@@ -90,8 +90,11 @@ public class Main { //crea juagdores
             System.out.println("1. Crear jugador");
             System.out.println("2. Buscar jugador");
             System.out.println("3. Leer todos los jugadores");
-            System.out.println("4. Abrir menú para equipos"); //Aquí se abre el menú para crear jugadores
+            System.out.println("4. Editar Jugador");
             System.out.println("5. Eliminar Jugador");
+            System.out.println("6. Crear técnico");
+            System.out.println("7. Crear un equipo");
+            System.out.println("8. Añadir jugadores y técnico al equipo");
             System.out.println("0. Salir");
             System.out.println("----------------------------------------");
 
@@ -109,15 +112,7 @@ public class Main { //crea juagdores
                     showAllPlayers();
                     break;
                 case 4:
-
-                    //Menú para equipos, mostrar que hace
-                    System.out.println("------------ MENÚ EQUIPOS ------------");
-                    System.out.println("1. Crear técnico");
-                    System.out.println("2. Crear un equipo");
-                    System.out.println("3. Añadir jugadores y técnico al equipo");
-                    System.out.println("4. Volver");
-                    System.out.println("0. Salir");
-                     //TODO seguir despues con eso
+                    editPlayer();
                     break;
                 case 5:
                     Borrar();
@@ -178,9 +173,17 @@ public class Main { //crea juagdores
         System.out.println("El nombre del jugador ingresado es: " + jborrar);
         Operations.BorrarPlayer(jborrar);
     }
+    public static void editPlayer()
+    {
+        Scanner leer = new Scanner(System.in);
+        System.out.println("Ingrese el nombre del jugador que desea editar");
+        String jEditar = leer.nextLine();
+        System.out.println("El nombre del jugador que se desea editar es " + jEditar);
+        System.out.println("");
+        Operations.EditarPlayer(jEditar);
+    }
 
 
 
-
-     //TODO menus para los jugadores y sus equipos
+     //TODO desarrollar la parte de editar jugador
 }
