@@ -123,7 +123,6 @@ public class Main { //crea juagdores
                 default:
                     System.out.println("Ingresa un número válido");
 
-
             }
 
         }
@@ -170,7 +169,7 @@ public class Main { //crea juagdores
         Scanner leer = new Scanner(System.in); //para definir que jugador busca para borrar
         System.out.println("Ingrese el jugador que desea borrar");
         String jborrar = leer.nextLine();
-        System.out.println("El nombre del jugador ingresado es: " + jborrar);
+        System.out.println("El jugador es : " + jborrar);
         Operations.BorrarPlayer(jborrar);
     }
     public static void editPlayer()
