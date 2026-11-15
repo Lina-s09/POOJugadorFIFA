@@ -10,6 +10,30 @@ import java.util.Scanner;
 
 
 public class Operations {
+
+    //Crear el metodo para definir el id
+    public static int idplayers()
+    {
+        int ID = 1; //definirlo en 1 para el conteo
+
+    try {
+            FileReader lector = new FileReader("players.csv");
+            BufferedReader buffer = new BufferedReader(lector); //lee los jugadores que se estan guardando
+            String playerReader;
+
+            while ((playerReader = buffer.readLine()) != null) //para leer los jugadores que no estan vacíos, lee todas las lineas
+            {
+                String[] data_readed = playerReader.split(",");
+                ID = Integer.parseInt(data_readed[0].trim()) + 1; //para definir como será el id sumando uno por jugador
+            }
+            buffer.close(); //cierra la lectura
+
+        } catch (IOException e) {
+            System.out.println("Algo salió mal :(");
+        }
+        return ID;
+    }
+
     public static void savePlayer(Jugador jugadorToSave) { //Metodo para escribir los jugadores
         try {
             FileWriter escribir = new FileWriter("players.csv", true); //Para guardar los jugadores, que se escriben, creando el objeto de ese tipo
@@ -57,10 +81,10 @@ public class Operations {
                 // System.out.println("Linea encontrada"+ playerReader);
                 String[] data_readed = playerReader.split(",\\s*"); //divide ña cadena en comas
                 Jugador temp_player = new Jugador(); //se crea un jugador temporal, con las características que indica para ser guardado
-                temp_player.name = data_readed[0]; //posicion de como se muestran en un tipo de arreglo
-                temp_player.dorsal = Integer.parseInt(data_readed[1]); //aqui pasa a ser un string
-                int edad = Integer.parseInt(data_readed[2]);
-                temp_player.is_alive = Boolean.parseBoolean(data_readed[3]);
+                temp_player.name = data_readed[1]; //posicion de como se muestran en un tipo de arreglo
+                temp_player.dorsal = Integer.parseInt(data_readed[2]); //aqui pasa a ser un string
+                int edad = Integer.parseInt(data_readed[3]);
+                temp_player.is_alive = Boolean.parseBoolean(data_readed[4]);
 
                 //para detrminar que los uygadores se estén leyendo correctamnete
                 // System.out.println("Nombre leido "+ temp_player.name);

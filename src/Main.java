@@ -131,9 +131,10 @@ public class Main { //crea juagdores
 
     public static void newPlayer() {
         Scanner leer = new Scanner(System.in); //para leer los datos que se van a ingresar
+        int ID = idplayers();
 
         //informacion de los juagdores a leer
-        System.out.println("Ingrese el número del nuevo jugador");
+        System.out.println("Ingrese el nombre del nuevo jugador");
         String name_player = leer.nextLine();
         System.out.println("Ingrese el año de nacimiento del nuevo jugador");
         int year = leer.nextInt();
@@ -142,7 +143,7 @@ public class Main { //crea juagdores
         System.out.println("Ingrese el dia de nacimiento del nuevo jugador");
         int day = leer.nextInt();
         //se crea el jugador con estos nuevos parametros
-        Jugador j2db = new Jugador(name_player, LocalDate.of(year, mont, day));
+        Jugador j2db = new Jugador(ID,name_player, LocalDate.of(year, mont, day));
         //se le añade la informacion que falta
         System.out.println("Ingrese el dorsal del nuevo jugador");
         j2db.dorsal = leer.nextInt();
