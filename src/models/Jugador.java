@@ -8,6 +8,7 @@ public class Jugador extends Persona { //Herencia de persona
     public Posicion posicion;
     private LocalDate nacimiento;
     public int ID; //Para iniciar a crear el ID
+    public int IDequipo;
 
     public void setNacimiento(LocalDate nacimiento) {
         this.nacimiento = nacimiento; //arreglar esta parte
@@ -43,8 +44,8 @@ public Jugador(int ID,String nombre, LocalDate nacimiento) //metodo constructor 
 public Jugador() //metodo para crear un jugador vacio
 {}
 
-public String playerToCSV () //metodo que retorna la información de los jugadores como archivo CSV
-{
-    return this.ID + ", " + this.name + ", "+ this.dorsal+", "+ this.edad+", "+ is_alive;
-}
+    public String playerToCSV () //metodo que retorna la información de los jugadores como archivo CSV
+    {
+        return this.ID + ", " + this.name + ", "+ this.dorsal+", "+ this.edad+", "+ is_alive + ", "+ IDequipo;
+    }
 }

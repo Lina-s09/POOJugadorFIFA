@@ -3,6 +3,7 @@
 import models.Equipo;
 import models.Jugador;
 import operations.Operations;
+import java.util.ArrayList;
 
 import static operations.Operations.*;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;//abre con la fecha actual
 import java.util.Scanner;
 
 public class Main { //crea juagdores
+
     public static void main(String[] args) {
         /*
 
@@ -93,9 +95,9 @@ public class Main { //crea juagdores
             System.out.println("3. Leer todos los jugadores");
             System.out.println("4. Editar Jugador");
             System.out.println("5. Eliminar Jugador");
-           // System.out.println("6. Crear técnico");
             System.out.println("6. Crear un equipo");
-            System.out.println("7. Añadir jugadores y técnico al equipo");
+            System.out.println("7. Leer todos los equipos");
+            System.out.println("8. Añadir jugadores al equipo");
             System.out.println("0. Salir");
             System.out.println("----------------------------------------");
 
@@ -120,6 +122,12 @@ public class Main { //crea juagdores
                     break;
                 case 6:
                     newEquipo();
+                    break;
+                case 7:
+                    readAllEquipos();
+                    break;
+                case 8:
+                    addPlayers();
                     break;
                 case 0:
                     System.out.println("Hasta pronto");
@@ -153,6 +161,7 @@ public class Main { //crea juagdores
         System.out.println("Ingrese el dorsal del nuevo jugador");
         j2db.dorsal = leer.nextInt();
         j2db.is_alive = true;
+        j2db.IDequipo = 0;
         //guardar jugador
         Operations.savePlayer(j2db);
     }
@@ -183,11 +192,6 @@ public class Main { //crea juagdores
         Operations.readOnePlayer(jbrc);
 
     }
-    public static void showAllPlayers()
-    {
-        Operations.readPlayers();
-    }
-
     public static void Borrar()
     {
         Scanner leer = new Scanner(System.in); //para definir que jugador busca para borrar
@@ -205,8 +209,104 @@ public class Main { //crea juagdores
         System.out.println("");
         Operations.EditarPlayer(jEditar);
     }
+    public static void readAllEquipos()
+    {
+        Operations.mostrarEquipos();
+    }
 
 
+    public static void addPlayers() {
 
-     //TODO desarrollar la parte de editar jugador
+        Scanner leer = new Scanner(System.in); //para definir el leer
+
+        ArrayList<Equipo> equipos = Operations.readEquipos(); //establacer las opraciones en el arreglo
+        ArrayList<Jugador> jugadores = Operations.readPlayers();
+
+        System.out.println("Los equipos disponibles son: ");
+
+        for (Equipo equipo : equipos)  //para definir como se veran los equipos
+        {
+            System.out.println("ID: " + equipo.ID + " - " + equipo.teamName);
+        }
+
+        System.out.println("Ingrese el ID del equipo al que desea agregar un jugador: ");
+        int idEquipo = leer.nextInt();
+
+        boolean encontrado = false; //para definir si el jugador fue encontrado o no
+
+        for (Equipo equipo : equipos) {
+
+            if (equipo.ID == idEquipo) { //para establecer si el id infgresado coincide con el del equipo que se está busacndo
+
+                encontrado = true; //en caso de ser encontrado
+
+                System.out.println("El equipo seleccionado es: " + equipo.teamName);
+
+                System.out.println("Los jugadores disponibles por ahora son:"); //para msotrar cuales son los juagdores que se pueden añadir
+                for (Jugador jugador : jugadores) {
+                    if (jugador.IDequipo == 0) {
+                        System.out.println("ID: " + jugador.ID + " - " + jugador.name);
+                    }
+                }
+
+                for (Jugador jugador : jugadores) {
+
+                    System.out.println("¿Cuántos jugadores desea agregar? (Recuerde que el máximo es 5)");
+                    int cantidad = leer.nextInt();
+
+                    if (cantidad > 5 || cantidad < 1) { //en caso de añadir números que no cumplna con el intervalo
+                        System.out.println("Ingrese un número que sea válido");
+                        return;
+                    }
+
+                    for (int i = 0; i < cantidad; i++) { //de acuerdo a la cantidad que se ingreso se muestran la cantidad de veces para agregar el jugador
+
+                        System.out.println("Ingrese el ID del jugador:");
+                        int idJugador = leer.nextInt();
+
+                        boolean jugadorEncontrado = false;
+
+                        for (Jugador jugadoractual : jugadores) {
+
+                            if (jugadoractual.ID == idJugador && jugadoractual.IDequipo == 0) {
+
+                                jugadoractual.IDequipo = idEquipo;
+                                jugadorEncontrado = true;
+
+                                System.out.println(jugadoractual.name + " fue asignado correctamente.");
+
+                                break;
+                            }
+                        }
+
+                        if (!jugadorEncontrado) {
+                            System.out.println("Jugador no fue encontrado o ya pertenece a un equipo.");
+                            i--;
+                        }
+                    }
+
+                    if (jugador.IDequipo == 0) {
+
+                        System.out.println("ID: " + jugador.ID + " Nombre: " + jugador.name);
+                    }
+                }
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No existe un equipo con ese ID. Revise el número que ingresó");
+            return;
+
+        }
+    }
+    public static void showAllPlayers()
+    {
+        ArrayList<Jugador> jugadores = readPlayers();
+
+        for (Jugador jugador : jugadores)
+        {
+            System.out.println(jugador.ID + ", " + jugador.name + ", " + jugador.dorsal + ", " + jugador.edad + ", " + jugador.is_alive + ", " + jugador.IDequipo);
+        }
+    }
 }
+
