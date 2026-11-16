@@ -35,7 +35,7 @@ public String toString() {
 public Jugador(int ID,String nombre, LocalDate nacimiento) //metodo constructor para crear el jugador
 {
     this.ID = ID;
-    super.name=nombre;
+    super.name = nombre;
     this.nacimiento=nacimiento;
     this.edad = getEdad(); //PARA YA INDICA EL ID DEL JUGADOR
 }

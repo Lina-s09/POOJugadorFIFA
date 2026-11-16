@@ -2,6 +2,7 @@ package operations;
 
 //Librerías
 
+import models.Equipo;
 import models.Jugador;
 
 import javax.swing.text.StyledEditorKit;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 
 public class Operations {
 
-    //Crear el metodo para definir el id
+    //Crear el metodo para definir el ID
     public static int idplayers()
     {
         int ID = 1; //definirlo en 1 para el conteo
@@ -42,6 +43,20 @@ public class Operations {
             escribir.write("\n"); //para un salto de línea
             escribir.close();
             System.out.println("El jugador fue guardado correctamente"); //mensaje para indicar que salió bien
+
+        } catch (IOException e) {
+            System.out.println("Algo anda mal :("); //mensaje de error
+        }
+    }
+
+    public static void saveEquipos (Equipo equipoToSave)
+    {
+        try {
+            FileWriter escribir = new FileWriter("equipos.csv", true); //Para guardar los jugadores, que se escriben, creando el objeto de ese tipo
+            escribir.write(equipoToSave.EquiposToSCV()); //es la unica que permite almacenar una cantidad de jugadores
+            escribir.write("\n"); //para un salto de línea
+            escribir.close();
+            System.out.println("El equipo fue guardado correctamente"); //mensaje para indicar que salió bien
 
         } catch (IOException e) {
             System.out.println("Algo anda mal :("); //mensaje de error
@@ -90,7 +105,7 @@ public class Operations {
                 // System.out.println("Nombre leido "+ temp_player.name);
                 // System.out.println("Nombre buscado"+ name);
 
-                if (temp_player.name.equals(name)) { //Indica la igualdad para encontra al jugado por el nombre ingresado
+                if (temp_player.name.equalsIgnoreCase(name)) { //Indica la igualdad para encontra al jugado por el nombre ingresado
                     encontrado = true; //establece que el jugador si es encontrado es verdadero
                     System.out.println("El jugador encontrado es: " + playerReader);
                     break;
@@ -134,7 +149,7 @@ public class Operations {
                 // System.out.println("Nombre leido "+ temp_player.name);
                 // System.out.println("Nombre buscado"+ name);
 
-                if (temp_player.name.equals(name)) {
+                if (temp_player.name.equalsIgnoreCase(name)) {
                     //System.out.println("El jugador encontrado es: "+ playerReader);
                     encontrado = true;
                     System.out.println("¿Desea borrar este jugador? " + playerReader); //Preguntar de encontrar el jugador
@@ -187,25 +202,25 @@ public class Operations {
                 // System.out.println("Linea encontrada"+ playerReader);
                 String[] data_readed = playerReader.split(",\\s*"); //divide ña cadena en comas
                 Jugador temp_player = new Jugador(); //se crea un jugador temporal, con las características que indica para ser guardado
-                temp_player.name = data_readed[0]; //posicion de como se muestran en un tipo de arreglo
-                temp_player.dorsal = Integer.parseInt(data_readed[1]); //aqui pasa a ser un string
+                temp_player.name = data_readed[1]; //posicion de como se muestran en un tipo de arreglo
+                temp_player.dorsal = Integer.parseInt(data_readed[2]); //aqui pasa a ser un string
                 //int edad = Integer.parseInt(data_readed[2]);
-                temp_player.edad = Integer.parseInt(data_readed[2]); //Definir la edad para el juagdor temporal que se crea co le fin de editar esta vez
-                temp_player.is_alive = Boolean.parseBoolean(data_readed[3]);
+                temp_player.edad = Integer.parseInt(data_readed[3]); //Definir la edad para el juagdor temporal que se crea co le fin de editar esta vez
+                temp_player.is_alive = Boolean.parseBoolean(data_readed[4]);
+                temp_player.ID = Integer.parseInt(data_readed[0]); //Establecer el id para que siempre sea leído
 
-                    if (temp_player.name.equals(name)) { //Indica la igualdad para encontra al jugado por el nombre ingresado
+                    if (temp_player.name.equalsIgnoreCase(name)) { //Indica la igualdad para encontra al jugado por el nombre ingresado
 
                         encontrado = true; //establece que el jugador si es encontrado es verdadero
 
-                        while (editplyr != 5) {
+                        while (editplyr != 4) {
                             //indicar una especie de menú para indicar que se busca cambiar de un jugador
                             System.out.println("El jugador encontrado es: " + temp_player.playerToCSV());
                             System.out.println("Qué desea editar del jugador?");
                             System.out.println("1. Nombre");
                             System.out.println("2. Dorsal");
-                            System.out.println("3. Edad");
-                            System.out.println("4. Definir si está vivo");
-                            System.out.println("5. Nada");
+                            System.out.println("3. Definir si está vivo");
+                            System.out.println("4. Nada");
 
                             editplyr = leer.nextInt(); //leer la opción del jugador
                             leer.nextLine();
@@ -213,7 +228,9 @@ public class Operations {
                             //Usar el switch para establacer las funciones a través de métodos
                         switch (editplyr) {
                             case 1:
-                                if (temp_player.name.equals(name)) {
+                                //NOMBRE
+                                if (temp_player.name.equalsIgnoreCase(name))
+                                {
                                     System.out.println("Editar el nombre de " + playerReader);
                                     System.out.println("Indica el nuevo nombre del jugador");
                                     String newname = leer.nextLine();
@@ -221,18 +238,31 @@ public class Operations {
                                     break;
                                 }
                             case 2:
-                                System.out.println(2);
-                                //dorsal
-                                break;
+                                //DORSAL
+                                if (temp_player.name.equalsIgnoreCase(name))
+                                {
+                                    //manejar de la misma forma que el nombre, porque la estructura de guardar ya esta lista
+                                    System.out.println("Editar el dorsal de "+ playerReader);
+                                    System.out.println("Ingrese el numero del nuevo dorsal");
+                                    int newDorsal = leer.nextInt();
+                                    leer.nextLine();
+                                    temp_player.dorsal = newDorsal;
+                                    break;
+                                }
                             case 3:
-                                System.out.println(3);
-                                //edad
-                                break;
+                                //IS_ALIVE
+                                if (temp_player.name.equalsIgnoreCase(name))
+                                {
+                                    //manejar de la misma forma que el nombre, porque la estructura de guardar ya está lista
+                                    System.out.println("Editar el estado de "+ playerReader);
+                                    System.out.println("Ingrese si el jugador esta vivo");
+                                    System.out.println("false para indicar que no y true para indicar que sí");
+                                    boolean now_is_alive = leer.nextBoolean();
+                                    leer.nextLine();
+                                    temp_player.is_alive = now_is_alive;
+                                    break;
+                                }
                             case 4:
-                                System.out.println(5);
-                                //is_alive
-                                break;
-                            case 5:
                                 System.out.println("Terminó la edición");
                                 break;
                             default:
@@ -268,7 +298,5 @@ public class Operations {
             System.out.println("Algo salió mal :(, el jugador no fue encontrado");
             e.printStackTrace();
         }
-
     }
-
 }

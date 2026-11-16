@@ -1,5 +1,6 @@
 //Librerias
 
+import models.Equipo;
 import models.Jugador;
 import operations.Operations;
 
@@ -92,9 +93,9 @@ public class Main { //crea juagdores
             System.out.println("3. Leer todos los jugadores");
             System.out.println("4. Editar Jugador");
             System.out.println("5. Eliminar Jugador");
-            System.out.println("6. Crear técnico");
-            System.out.println("7. Crear un equipo");
-            System.out.println("8. Añadir jugadores y técnico al equipo");
+           // System.out.println("6. Crear técnico");
+            System.out.println("6. Crear un equipo");
+            System.out.println("7. Añadir jugadores y técnico al equipo");
             System.out.println("0. Salir");
             System.out.println("----------------------------------------");
 
@@ -116,6 +117,10 @@ public class Main { //crea juagdores
                     break;
                 case 5:
                     Borrar();
+                    break;
+                case 6:
+                    newEquipo();
+                    break;
                 case 0:
                     System.out.println("Hasta pronto");
                     System.exit(0); //Para finalizar el programa
@@ -150,8 +155,26 @@ public class Main { //crea juagdores
         j2db.is_alive = true;
         //guardar jugador
         Operations.savePlayer(j2db);
-
     }
+
+    public static void newEquipo()
+    {
+        Scanner leer = new Scanner(System.in);
+
+        //Crear los equipos, pero esta vez se ingresa el ID de cada equipo
+        System.out.println("Ingrese el número de ID del equipo");
+        int ID = leer.nextInt();
+        leer.nextLine(); //salto de línea porque no permitía leer el nombre
+        System.out.println("Ingrese el nombre del equipo");
+        String teamName = leer.nextLine();
+        System.out.println("Ingrese el país del equipo");
+        String pais = leer.nextLine();
+
+        //ahora para guardarlos en archivo scv
+        Equipo nuevoequipo = new Equipo(ID, teamName, pais);
+        Operations.saveEquipos(nuevoequipo);
+    }
+
     public static void findPlayer() { //buscar jugador
         Scanner leer = new Scanner(System.in); //para definir que lea
         System.out.println("Ingrese el jugador que desea buscar");

@@ -1,5 +1,6 @@
 ### IntelliJ IDEA ###
 players.csv
+equipos.csv
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
